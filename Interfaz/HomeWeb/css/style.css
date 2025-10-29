@@ -1,41 +1,57 @@
 :root{
   --bg:#ffffff;
   --muted:#9aa0a6;
-  --accent:#6a402d; /* marrón del heading */
+  --accent:#6a402d;
   --footer-bg: #f6f7f8;
   --text:#222;
   --brand-font: "Montserrat", sans-serif;
   --display-font: "Oswald", sans-serif;
+  --hero-overlay: rgba(0,0,0,0.1300);
+  --navbar-height: 88px;
 }
 
 /* Reset y tipografías */
-body{
-  font-family: var(--brand-font);
-  color: var(--text);
-  background: var(--bg);
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;               /* elimina el margen por defecto del body */
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--brand-font);
 }
 
 /* NAVBAR */
 .navbar {
   transition: background .25s ease;
+  z-index: 999;
 }
 .navbar-brand .brand-text {
   font-weight:600;
   font-size:0.95rem;
-  color: rgba(0,0,0,0.75);
+  color: rgba(0,0,0,0.95);
 }
 
-/* HERO */
 .hero{
-  min-height: 84vh;
-  background-image: url('/Interfaz/HomeWeb/img/home.png');
+  height: 100svh;
+  height: 100vh;
+
+  /* prevenir mostrar footer por debajo */
+  min-height: 100vh;
+
+  background-image: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('/Interfaz/HomeWeb/img/home.png');
   background-size: cover;
-  background-position: left center;
+  background-position: center center;
+  background-repeat: no-repeat;
+
   position: relative;
+  display: block;
   margin-top: 0; /* navbar fixed */
-  display:block;
+  overflow: hidden;
 }
 
 /* overlay subtle */
@@ -44,17 +60,22 @@ body{
   position:absolute;
   inset:0;
   background: linear-gradient(to right, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.4) 55%);
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* texto grande a la derecha */
+/* texto grande a la derecha*/
 .hero-text{
+  position: absolute;
   top: 22%;
   right: 9%;
   transform: translateY(-10%);
   width: 44%;
   color: var(--accent);
-  z-index:2;
+  z-index: 2;
 }
+
+/* estilos de texto */
 .hero-title{
   font-family: var(--display-font);
   font-weight:800;
@@ -71,7 +92,7 @@ body{
   font-size: 0.8rem;
   color: #fff;
   text-align: right;
-  background: rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.60);
   display: inline-block;
   padding: 0.12rem 0.5rem;
   font-weight:700;
@@ -83,6 +104,8 @@ body{
   background: var(--footer-bg);
   color: #333;
   border-top: 1px solid rgba(0,0,0,0.04);
+  position: relative;
+  z-index: 2;
 }
 .site-footer .footer-title{
   color: #9ea3a7;
@@ -93,6 +116,7 @@ body{
 }
 .site-footer ul { padding-left:0; }
 .site-footer li { margin-bottom: 0.8rem; color: #666; }
+
 .site-footer .link-underline { text-decoration: underline; color: #666; }
 
 /* utilidad */
@@ -102,7 +126,258 @@ body{
 @media (max-width: 1200px){
   .hero-text{ width: 50%; right:6%; }
 }
+
 @media (max-width: 768px){
-  .hero-text{ position: relative; top: auto; right: auto; text-align: left; width: 100%; padding: 2rem 0; color: var(--accent); }
-  .hero{ min-height: 56vh; background-position: center; }
+  .hero {
+    height: auto;
+    min-height: 56vh;
+    background-position: center;
+  }
+
+  .hero-text{
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    text-align: left;
+    width: 100%;
+    padding: 2rem 0;
+    color: var(--accent);
+    z-index: 2;
+  }
+
+  .hero-title{
+    font-size: clamp(2rem, 8vw, 3.5rem);
+  }
 }
+
+.col-12 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+.site-footer .link-underline {
+  text-decoration: none;      
+  position: relative;
+  display: inline-block;      
+  color: inherit;            
+  transition: color 180ms ease;
+}
+
+.site-footer .link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;               /* ajusta separación si quieres */
+  width: 100%;
+  height: 2px;                /* grosor de la línea */
+  background: currentColor;   /* toma el color del enlace */
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 280ms cubic-bezier(.2,.9,.2,1);
+  pointer-events: none;
+}
+
+.site-footer .link-underline:hover::after,
+.site-footer .link-underline:focus::after,
+.site-footer .link-underline:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.site-footer .link-underline:hover,
+.site-footer .link-underline:focus,
+.site-footer .link-underline:focus-visible {
+  color: #000; /* si prefieres mantener #666, cámbialo por inherit */
+  outline: none;
+}
+
+/* Accesibilidad: mostrar foco visible sin tocar la estructura del footer */
+.site-footer .link-underline:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+  border-radius: 2px;
+}
+
+/* estado inicial (oculto) */
+.navbar-brand img,
+.navbar .nav-link,
+.hero-text {
+  opacity: 0;
+  transform: translateY(8px);
+  will-change: opacity, transform;
+}
+
+/* hero: entra desde la derecha por defecto */
+.hero-text {
+  transform: translateX(40px);
+}
+
+/* clases que añade JS para mostrar */
+.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.animate-in-from-right {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+/* cuando body tiene is-loaded (fallback/seguro) */
+body.is-loaded .navbar-brand img,
+body.is-loaded .navbar .nav-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+body.is-loaded .hero-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* añade un pequeño stagger visual por CSS si JS no lo hace */
+.navbar .nav-link { transition: opacity .42s ease, transform .42s ease; }
+
+/* ===== Botón de toggle de tema (en navbar) ===== */
+.theme-toggle {
+  margin-left: 0.75rem;
+  border: none;
+  background: transparent;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  transition: background .18s ease, color .18s ease;
+}
+
+/* visible focus */
+.theme-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0,0,0,0.06);
+}
+
+.theme-toggle.is-dark { opacity: 0.95; }
+
+/* SVG dentro del botón: adaptar tamaño y suavizar */
+.theme-toggle svg { display: block; width: 18px; height: 18px; }
+
+/* ===== Modo oscuro: variables override ===== */
+.dark-mode {
+  --bg: #0b0b0b;
+  --text: #ffffff;
+  --muted: #bfbfbf;
+  --footer-bg: #161616;   /* gris oscuro */
+  --hero-overlay: rgba(0,0,0,0.55);
+  /* no cambiamos --accent para mantener el marrón si quieres */
+}
+
+/* Aplica variables globalmente (asegúrate de que usas las variables en el resto del CSS) */
+:root, .dark-mode {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Header: logo y links en blanco */
+.dark-mode .navbar .nav-link,
+.dark-mode .navbar-brand .brand-text {
+  color: var(--text) !important;
+}
+
+.dark-mode .navbar-brand img {
+  filter: none;
+  opacity: 1;
+}
+
+.dark-mode .hero-text,
+.dark-mode .hero-title,
+.dark-mode .hero-sub {
+  color: #ffffff !important;
+}
+.dark-mode .hero-sub {
+  background: rgba(255,255,255,0.06) !important; /* sutil para que siga siendo legible */
+}
+
+.dark-mode .site-footer {
+  background: var(--footer-bg) !important; /* gris oscuro */
+  color: var(--text) !important;            /* texto blanco */
+  border-top-color: rgba(255,255,255,0.04) !important;
+}
+
+.dark-mode .site-footer .footer-title {
+  color: var(--muted) !important; /* gris claro para que no sea todo blanco */
+}
+
+.dark-mode .site-footer li,
+.dark-mode .site-footer a,
+.dark-mode .site-footer p,
+.dark-mode .site-footer .link-underline {
+  color: #ffffff !important;
+}
+
+
+.dark-mode .site-footer .link-underline::after,
+.dark-mode .site-footer .col-md-2 .list-unstyled li::after {
+  background: currentColor !important;
+}
+
+.dark-mode hr,
+.dark-mode .border,
+.dark-mode .card {
+  border-color: rgba(255,255,255,0.06) !important;
+}
+
+.dark-mode .theme-toggle { color: var(--text) !important; }
+
+.dark-mode .hero::after {
+  background: linear-gradient(to right, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 55%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-brand img,
+  .navbar .nav-link,
+  .hero-text,
+  .theme-toggle {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-text { padding: 0 1rem; }
+}
+
+.logo-fallback-invert {
+  filter: invert(1) brightness(1.25) saturate(0.9);
+  transition: filter .18s ease, opacity .18s ease;
+}
+
+.navbar-brand::before {
+  content: none;
+}
+
+.footer-bottom-dark {
+  color: var(--text) !important; 
+}
+
+.dark-mode .navbar-brand img {
+  content: url("/Interfaz/HomeWeb/img/logoWhite.png"); 
+  filter: none !important;
+}
+
+/* 
+.fade-right {
+    opacity: 0;
+    transform: translateX(40px);
+    will-change: opacity, transform;
+    transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.fade-right.show {
+    opacity: 1;
+    transform: translateX(0);
+} */
