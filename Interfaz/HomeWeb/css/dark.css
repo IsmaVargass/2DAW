@@ -1,0 +1,21 @@
+:root{
+  --bg: #0b0c0e;
+  --muted: #9aa0a6;
+  --accent: #c19b84;
+  --footer-bg: #0f1112;
+  --text: #e6e6e6;
+}
+
+/* Reusar styles.css: sólo redefinimos los colores principales */
+body{
+  background: var(--bg);
+  color: var(--text);
+}
+.hero::after{
+  background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.65) 55%);
+}
+.site-footer{
+  background: #0b0b0d;
+  border-top-color: rgba(255,255,255,0.04);
+}
+.site-footer li, .site-footer p { color: #bdbdbd; }

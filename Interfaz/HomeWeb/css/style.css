@@ -1,0 +1,108 @@
+:root{
+  --bg:#ffffff;
+  --muted:#9aa0a6;
+  --accent:#6a402d; /* marrón del heading */
+  --footer-bg: #f6f7f8;
+  --text:#222;
+  --brand-font: "Montserrat", sans-serif;
+  --display-font: "Oswald", sans-serif;
+}
+
+/* Reset y tipografías */
+body{
+  font-family: var(--brand-font);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* NAVBAR */
+.navbar {
+  transition: background .25s ease;
+}
+.navbar-brand .brand-text {
+  font-weight:600;
+  font-size:0.95rem;
+  color: rgba(0,0,0,0.75);
+}
+
+/* HERO */
+.hero{
+  min-height: 84vh;
+  background-image: url('/Interfaz/HomeWeb/img/home.png');
+  background-size: cover;
+  background-position: left center;
+  position: relative;
+  margin-top: 0; /* navbar fixed */
+  display:block;
+}
+
+/* overlay subtle */
+.hero::after{
+  content: "";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(to right, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.4) 55%);
+}
+
+/* texto grande a la derecha */
+.hero-text{
+  top: 22%;
+  right: 9%;
+  transform: translateY(-10%);
+  width: 44%;
+  color: var(--accent);
+  z-index:2;
+}
+.hero-title{
+  font-family: var(--display-font);
+  font-weight:800;
+  font-size: clamp(3.2rem, 8vw, 6.4rem);
+  line-height:0.85;
+  margin:0;
+  text-transform: uppercase;
+  letter-spacing:2px;
+  color: var(--accent);
+  text-align: right;
+}
+.hero-sub{
+  margin-top: 0.8rem;
+  font-size: 0.8rem;
+  color: #fff;
+  text-align: right;
+  background: rgba(0,0,0,0.25);
+  display: inline-block;
+  padding: 0.12rem 0.5rem;
+  font-weight:700;
+  vertical-align: middle;
+}
+
+/* FOOTER */
+.site-footer{
+  background: var(--footer-bg);
+  color: #333;
+  border-top: 1px solid rgba(0,0,0,0.04);
+}
+.site-footer .footer-title{
+  color: #9ea3a7;
+  font-weight:600;
+  margin-bottom: 1rem;
+  text-transform: none;
+  font-size: 0.95rem;
+}
+.site-footer ul { padding-left:0; }
+.site-footer li { margin-bottom: 0.8rem; color: #666; }
+.site-footer .link-underline { text-decoration: underline; color: #666; }
+
+/* utilidad */
+.container { max-width: 1150px; }
+
+/* responsive tweaks */
+@media (max-width: 1200px){
+  .hero-text{ width: 50%; right:6%; }
+}
+@media (max-width: 768px){
+  .hero-text{ position: relative; top: auto; right: auto; text-align: left; width: 100%; padding: 2rem 0; color: var(--accent); }
+  .hero{ min-height: 56vh; background-position: center; }
+}
