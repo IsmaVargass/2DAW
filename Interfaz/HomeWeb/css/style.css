@@ -43,7 +43,7 @@ html, body {
   /* prevenir mostrar footer por debajo */
   min-height: 100vh;
 
-  background-image: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('/Interfaz/HomeWeb/img/home.png');
+  background-image: linear-gradient(var(--hero-overlay), var(--hero-overlay)), url('../img/home.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -365,7 +365,7 @@ body.is-loaded .hero-text {
 }
 
 .dark-mode .navbar-brand img {
-  content: url("/Interfaz/HomeWeb/img/logoWhite.png"); 
+  content: url("../img/logoWhite.png"); 
   filter: none !important;
 }
 
