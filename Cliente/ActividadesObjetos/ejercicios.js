@@ -18,7 +18,7 @@ function ejercicio1() {
     console.log(`Edad (dot): ${persona.edad}`);
     document.getElementById('salida').textContent += `Edad (dot): ${persona.edad}\n`;
 
-    // Modificar: añadir pais y eliminar trabajo
+    // modificar: añadir pais y eliminar trabajo
     persona.pais = 'España';
     delete persona.trabajo;
 
@@ -26,7 +26,7 @@ function ejercicio1() {
     console.log('Objeto persona (después de cambios):', persona);
     document.getElementById('salida').textContent += 'Objeto persona (después de cambios): ' + JSON.stringify(persona) + '\n';
 
-    // Notación de corchetes
+    // notación de corchetes
     console.log('Edad (brackets):', persona['edad']);
     document.getElementById('salida').textContent += 'Edad (brackets): ' + persona['edad'] + '\n\n';
 }
@@ -75,6 +75,7 @@ function ejercicio3() {
 // EJERCICIO 5: Métodos en objetos y uso de "this" 
 function ejercicio5() {
     printHeader(5);
+    // scope local para no contaminar el global
     (function scopeLocal() {
         function Car(name, model, year) {
             this.name = name;
@@ -126,14 +127,28 @@ function ejercicio7() {
 function ejercicio8() {
     printHeader(8);
     class Vehicle {
-        constructor(name) { this.name = name; }
-        move() { console.log(`${this.name} se está moviendo`); document.getElementById('salida').textContent += `${this.name} se está moviendo\n`; }
+        constructor(name) {
+            this.name = name;
+        }
+        move() {
+            console.log(`${this.name} se está moviendo`);
+            document.getElementById('salida').textContent += `${this.name} se está moviendo\n`;
+        }
     }
 
     class Car extends Vehicle {
-        constructor(name, model) { super(name); this.model = model; }
-        move() { console.log(`${this.name} is Rolling out!`); document.getElementById('salida').textContent += `${this.name} is Rolling out!\n`; }
-        info() { console.log(`Nombre: ${this.name} — Modelo: ${this.model}`); document.getElementById('salida').textContent += `Nombre: ${this.name} — Modelo: ${this.model}\n`; }
+        constructor(name, model) {
+            super(name);
+            this.model = model;
+        }
+        move() {
+            console.log(`${this.name} is Rolling out!`);
+            document.getElementById('salida').textContent += `${this.name} is Rolling out!\n`;
+        }
+        info() {
+            console.log(`Nombre: ${this.name} — Modelo: ${this.model}`);
+            document.getElementById('salida').textContent += `Nombre: ${this.name} — Modelo: ${this.model}\n`;
+        }
     }
 
     let myCar = new Car('Toyota', 'BZ4X');
@@ -147,12 +162,20 @@ function ejercicio9() {
     printHeader(9);
     class CajaFuerte {
         #codigo;
-        constructor(propietario, codigoInicial) { this.propietario = propietario; this.#codigo = codigoInicial; }
-        verCodigo() { return this.#codigo; }
+        constructor(propietario, codigoInicial) {
+            this.propietario = propietario;
+            this.#codigo = codigoInicial;
+        }
+        verCodigo() {
+            return this.#codigo;
+        }
         cambiarCodigo(nuevoCodigo) {
             if (Number.isInteger(nuevoCodigo) && nuevoCodigo >= 1000 && nuevoCodigo <= 9999) {
-                this.#codigo = nuevoCodigo; return true;
-            } else { return false; }
+                this.#codigo = nuevoCodigo;
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -169,11 +192,11 @@ function ejercicio9() {
     document.getElementById('salida').textContent += 'miCaja.verCodigo() ahora: ' + miCaja.verCodigo() + '\n';
 
     // Demostraciones seguras sin eval:
-    // 1) Intentar acceder por la "clave con hash" no funciona: miCaja['#codigo'] -> undefined
+    // 1) intentar acceder por la "clave con hash" no funciona: miCaja['#codigo'] -> undefined
     console.log("miCaja['#codigo'] (no es lo mismo que campo privado):", miCaja['#codigo']);
     document.getElementById('salida').textContent += "miCaja['#codigo'] (no es lo mismo que campo privado): " + String(miCaja['#codigo']) + '\n';
 
-    // 2) Las claves enumerables y no enumerables públicas no listan el campo privado
+    // 2) las claves enumerables y no enumerables públicas no listan el campo privado
     console.log('Object.keys(miCaja):', Object.keys(miCaja));
     document.getElementById('salida').textContent += 'Object.keys(miCaja): ' + JSON.stringify(Object.keys(miCaja)) + '\n';
 
@@ -199,7 +222,7 @@ function ejercicio10_setup() {
         let nombre = input.value.trim() || 'invitado/a';
         let texto = `¡Hola ${nombre}! Bienvenido/a.`;
 
-        // Mostrar dentro del div (sin borrar anteriores)
+        // mostrar dentro del div (sin borrar anteriores)
         let node = document.createElement('div');
         node.className = 'message';
         node.textContent = texto;
@@ -227,9 +250,9 @@ function ejercicio10_setup() {
 
 // runAll y setup 
 function runAllExercises() {
-    // Limpiar salida
+    // limpiar salida
     document.getElementById('salida').textContent = '';
-    // Llamadas en orden; cada ejercicio pinta su cabecera con printHeader
+    // llamadas en orden; cada ejercicio pinta su cabecera con printHeader
     ejercicio1();
     ejercicio2();
     ejercicio3();
@@ -239,7 +262,7 @@ function runAllExercises() {
     ejercicio8();
     ejercicio9();
     printHeader(10);
-    // Ejercicio 10 necesita interacción: dejamos instrucción visible
+    // ejercicio 10 necesita interacción: dejamos instrucción visible
     document.getElementById('salida').textContent += 'Interacciona con la sección "Saludo Interactivo" en la página.\n\n';
     console.log('--- EJERCICIO 10 --- Interactúa con la sección "Saludo Interactivo" en la página.');
 }
