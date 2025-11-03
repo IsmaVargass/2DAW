@@ -2,7 +2,7 @@
 
 // Helper: escribe cabecera bonita en consola y en el div #salida
 function printHeader(n) {
-    const header = `--- EJERCICIO ${n} ---\n`;
+    let header = `--- EJERCICIO ${n} ---\n`;
     console.log(header.trim());
     document.getElementById('salida').textContent += header;
 }
@@ -10,7 +10,7 @@ function printHeader(n) {
 // EJERCICIO 1: Creación y acceso a objetos 
 function ejercicio1() {
     printHeader(1);
-    const persona = { nombre: 'Ana', edad: 28, trabajo: 'Ingeniera' };
+    let persona = { nombre: 'Ana', edad: 28, trabajo: 'Ingeniera' };
 
     // Acceso con notación de punto
     console.log(`Nombre (dot): ${persona.nombre}`);
@@ -34,7 +34,7 @@ function ejercicio1() {
 // EJERCICIO 2: Operador "in" y bucle "for...in"
 function ejercicio2() {
     printHeader(2);
-    const persona = { nombre: 'Ana', edad: 28, pais: 'España' };
+    let persona = { nombre: 'Ana', edad: 28, pais: 'España' };
 
     console.log(`¿'nombre' está en persona? → ${'nombre' in persona}`);
     document.getElementById('salida').textContent += `¿'nombre' está en persona? → ${'nombre' in persona}\n`;
@@ -43,7 +43,7 @@ function ejercicio2() {
 
     console.log('Recorriendo propiedades con for...in:');
     document.getElementById('salida').textContent += 'Recorriendo propiedades con for...in:\n';
-    for (const clave in persona) {
+    for (let clave in persona) {
         console.log(`  ${clave} : ${persona[clave]}`);
         document.getElementById('salida').textContent += `  ${clave} : ${persona[clave]}\n`;
     }
@@ -53,10 +53,10 @@ function ejercicio2() {
 // EJERCICIO 3: Referencias de objetos y clonación
 function ejercicio3() {
     printHeader(3);
-    const usuario1 = { nombre: 'Ismael', edad: 22, email: 'ismael@prueba.com' };
+    let usuario1 = { nombre: 'Ismael', edad: 22, email: 'ismael@prueba.com' };
 
     // copia por referencia
-    const usuario2 = usuario1;
+    let usuario2 = usuario1;
     console.log('Antes de modificar usuario2:', usuario1, usuario2);
     document.getElementById('salida').textContent += 'Antes de modificar usuario2: ' + JSON.stringify(usuario1) + '\n';
 
@@ -66,7 +66,7 @@ function ejercicio3() {
     document.getElementById('salida').textContent += 'Después de cambiar usuario2.edad = 23: ' + JSON.stringify(usuario1) + '\n';
 
     // clon superficial con Object.assign
-    const clon = Object.assign({}, usuario1);
+    let clon = Object.assign({}, usuario1);
     clon.nombre = 'ClonIsmael';
     console.log('Original y clon:', usuario1, clon);
     document.getElementById('salida').textContent += 'Original: ' + JSON.stringify(usuario1) + '\n' + 'Clon: ' + JSON.stringify(clon) + '\n\n';
@@ -81,7 +81,7 @@ function ejercicio5() {
             this.model = model;
             this.year = year;
         }
-        const miCar = new Car('Ford', 'Focus', 2018);
+        let miCar = new Car('Ford', 'Focus', 2018);
         console.log('Instancia creada con constructor Car (local):', miCar);
         document.getElementById('salida').textContent += 'Instancia Car (local): ' + JSON.stringify(miCar) + '\n\n';
     })();
@@ -90,13 +90,13 @@ function ejercicio5() {
 // EJERCICIO 6: Symbol y claves ocultas
 function ejercicio6() {
     printHeader(6);
-    const id = Symbol('id');
-    const empleado = { nombre: 'Marta', puesto: 'Desarrolladora' };
+    let id = Symbol('id');
+    let empleado = { nombre: 'Marta', puesto: 'Desarrolladora' };
     empleado[id] = 987654;
 
     console.log('Iterando con for...in (símbolos no aparecen):');
     document.getElementById('salida').textContent += 'Iterando con for...in (símbolos no aparecen):\n';
-    for (const k in empleado) {
+    for (let k in empleado) {
         console.log(`  ${k} : ${empleado[k]}`);
         document.getElementById('salida').textContent += `  ${k} : ${empleado[k]}\n`;
     }
@@ -112,7 +112,7 @@ function ejercicio6() {
 // EJERCICIO 7: Conversión de objetos a valores primitivos
 function ejercicio7() {
     printHeader(7);
-    const cuentaBancaria = {
+    let cuentaBancaria = {
         saldo: 1000,
         toString() {
             return `Saldo: ${this.saldo} EUR`;
@@ -136,7 +136,7 @@ function ejercicio8() {
         info() { console.log(`Nombre: ${this.name} — Modelo: ${this.model}`); document.getElementById('salida').textContent += `Nombre: ${this.name} — Modelo: ${this.model}\n`; }
     }
 
-    const myCar = new Car('Toyota', 'BZ4X');
+    let myCar = new Car('Toyota', 'BZ4X');
     myCar.move();
     myCar.info();
     document.getElementById('salida').textContent += '\n';
@@ -156,13 +156,13 @@ function ejercicio9() {
         }
     }
 
-    const miCaja = new CajaFuerte('Ana', 1234);
+    let miCaja = new CajaFuerte('Ana', 1234);
     console.log('miCaja.propietario:', miCaja.propietario);
     document.getElementById('salida').textContent += 'miCaja.propietario: ' + miCaja.propietario + '\n';
     console.log('miCaja.verCodigo():', miCaja.verCodigo());
     document.getElementById('salida').textContent += 'miCaja.verCodigo(): ' + miCaja.verCodigo() + '\n';
 
-    const cambioOK = miCaja.cambiarCodigo(5678);
+    let cambioOK = miCaja.cambiarCodigo(5678);
     console.log('Cambio a 5678 fue exitoso?', cambioOK);
     document.getElementById('salida').textContent += 'Cambio a 5678 fue exitoso? ' + cambioOK + '\n';
     console.log('miCaja.verCodigo() ahora:', miCaja.verCodigo());
@@ -191,16 +191,16 @@ function ejercicio9() {
 // EJERCICIO 10: Objeto window, DOM y eventos 
 function ejercicio10_setup() {
     // ! Nota: NO llamo a printHeader(10) aquí para evitar que aparezca al cargar la página.
-    const boton = document.getElementById('saludar');
-    const input = document.getElementById('nombre');
-    const mensajesDiv = document.getElementById('mensajes');
+    let boton = document.getElementById('saludar');
+    let input = document.getElementById('nombre');
+    let mensajesDiv = document.getElementById('mensajes');
 
     boton.addEventListener('click', function () {
-        const nombre = input.value.trim() || 'invitado/a';
-        const texto = `¡Hola ${nombre}! Bienvenido/a.`;
+        let nombre = input.value.trim() || 'invitado/a';
+        let texto = `¡Hola ${nombre}! Bienvenido/a.`;
 
         // Mostrar dentro del div (sin borrar anteriores)
-        const node = document.createElement('div');
+        let node = document.createElement('div');
         node.className = 'message';
         node.textContent = texto;
         mensajesDiv.appendChild(node);
@@ -209,7 +209,7 @@ function ejercicio10_setup() {
         window.alert(texto);
 
         // ventana hija
-        const child = window.open('', '_blank', 'width=400,height=200');
+        let child = window.open('', '_blank', 'width=400,height=200');
         if (child) {
             child.document.write(`<p style="font-family: Arial; padding: 20px;">Bienvenido/a, <strong>${nombre}</strong>.<br>Esta es la ventana hija.</p>`);
             child.document.title = 'Bienvenida';
@@ -246,7 +246,6 @@ function runAllExercises() {
 
 document.addEventListener('DOMContentLoaded', () => {
     ejercicio10_setup();
-    const btn = document.getElementById('runAll');
+    let btn = document.getElementById('runAll');
     btn.addEventListener('click', runAllExercises);
 });
-
