@@ -1,0 +1,61 @@
+body {
+  font-family: system-ui, Segoe UI, Roboto, Arial;
+  margin: 24px;
+  background: #f7f7fb;
+  color: #111;
+}
+
+header {
+  margin-bottom: 16px;
+}
+
+form {
+  display: flex;
+  gap: 8px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  background-color: #a8ffaa;
+}
+
+ul {
+  margin-top: 16px;
+  padding-left: 20px;
+}
+
+.tarea-detal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 6px;
+  background: #fff;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.tarea-detal small {
+  color: #666;
+  margin-left: auto;
+}
+
+.btn-eliminar {
+  background: #ff6b6b;
+  color: white;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}

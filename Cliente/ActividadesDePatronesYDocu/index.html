@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patrones y Documentación</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Gestor de Tareas - Ismael Vargas Duque</h1>
+      <p>
+        Ejercicios: Tarea (POO) · TaskManager (Singleton + Observer) ·
+        ElementoUIFactory (Factory)
+      </p>
+    </header>
+
+    <section>
+      <form id="formTarea">
+        <input
+          id="inputTarea"
+          type="text"
+          placeholder="Escribe una nueva tarea..."
+          required
+        />
+        <button type="submit">Añadir</button>
+      </form>
+
+      <div id="controles">
+        <button id="btnAddDemo">Añadir demo</button>
+        <button id="btnClearAll">Eliminar todo</button>
+      </div>
+
+      <ul id="listaTareas" aria-live="polite"></ul>
+    </section>
+  </body>
+</html>
