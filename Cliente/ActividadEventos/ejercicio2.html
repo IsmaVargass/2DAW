@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RA5 - Ejercicio 2: Validador Regex</title>
+    <script defer src="script2.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+      }
+      input {
+        padding: 8px;
+        font-size: 1.1em;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+      }
+      span {
+        margin-left: 10px;
+        font-weight: bold;
+      }
+      .valido {
+        border-color: green;
+        color: green;
+      }
+      .invalido {
+        border-color: red;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Validador de Email en Vivo</h2>
+    <label for="email">Email:</label>
+    <input type="text" id="email-input" placeholder="tu@correo.com" />
+    <span id="email-feedback"></span>
+  </body>
+</html>

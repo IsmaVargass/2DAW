@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RA5 - Ejercicio 1: Laboratorio</title>
+    <script defer src="script1.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        gap: 20px;
+      }
+      #zona-mouse {
+        width: 300px;
+        height: 200px;
+        border: 2px dashed blue;
+        background: #f0f8ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        transition: background 0.3s;
+      }
+      #zona-teclado {
+        padding: 10px;
+        border: 1px solid #eee;
+      }
+      #log {
+        width: 400px;
+        height: 300px;
+        border: 1px solid #ccc;
+        overflow-y: scroll;
+        list-style: none;
+        padding: 5px;
+        font-family: monospace;
+        background: #f9f9f9;
+      }
+      .highlight {
+        background: #ffe0e0 !important;
+        border-color: red !important;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h2>Zona de Ratón</h2>
+      <div id="zona-mouse">Pasa, clica y mueve el ratón aquí.</div>
+      <h2>Zona de Teclado</h2>
+      <div id="zona-teclado">
+        <input type="text" id="input-texto" placeholder="Escribe aquí..." />
+      </div>
+    </div>
+    <ul id="log"></ul>
+  </body>
+</html>
