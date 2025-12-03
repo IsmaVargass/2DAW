@@ -1,4 +1,4 @@
-// Ejercicio 1: Selección de Elementos
+// Ejercicio 1: Selección de Elementos -- SE MUESTRA POR CONSOLA ESTE EJERCICIO.
 const tituloPrincipal = document.getElementById('titulo-principal');
 const primerSubtitulo = document.querySelector('.subtitulo');
 const imagenesThumbs = document.querySelectorAll('img.thumb');
@@ -8,6 +8,8 @@ console.log(tituloPrincipal.textContent);
 console.log(primerSubtitulo.textContent);
 console.log(imagenesThumbs);
 console.log(btnAddTask.textContent);
+
+// -- TODOS ESTOS EJERCICIOS ESTÁN REALIZADOS EN EL ARCHIVO index.html --
 
 // Ejercicio 2: El Interruptor
 const btnToggle = document.getElementById('btn-toggle');
