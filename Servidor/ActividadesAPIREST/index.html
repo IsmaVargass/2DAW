@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Empleados</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Gestión de Empleados</h1>
+
+    <!-- Formulario para añadir empleado -->
+    <form id="form-empleado">
+        <h2>Añadir Nuevo Empleado</h2>
+        <input type="text" id="nombre" placeholder="Nombre completo" required>
+        <input type="text" id="puesto" placeholder="Puesto" required>
+        <input type="number" id="salario" placeholder="Salario" step="0.01" required>
+        <button type="submit">Añadir Empleado</button>
+    </form>
+
+    <div id="mensaje"></div>
+
+    <!-- Lista de empleados -->
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Lista de Empleados</h2>
+        <button id="btn-recargar">Recargar Lista</button>
+    </div>
+    
+<div id="loading">Cargando empleados...</div>
+    <ul id="lista-empleados"></ul>
+
+    <script>
+        const loading = document.getElementById('loading');
+        const listaEmpleados = document.getElementById('lista-empleados');
+        const formEmpleado = document.getElementById('form-empleado');
+        const mensaje = document.getElementById('mensaje');
+        const btnRecargar = document.getElementById('btn-recargar');
+        
+
+        // Función para mostrar mensajes
+        function mostrarMensaje(texto, tipo) {
+            mensaje.textContent = texto;
+            mensaje.className = tipo; 
+            mensaje.style.display = 'block';
+            
+            setTimeout(() => {
+                mensaje.style.display = 'none';
+            }, 5000);
+        }
+
+        // Función para ELIMINAR un empleado
+        function eliminarEmpleado(id, nombre) {
+            if (!confirm(`¿Estás seguro de que quieres eliminar a ${nombre} (ID: ${id})?`)) {
+                return;
+            }
+
+            fetch(`api.php?recurso=empleados&id=${id}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'ok') {
+                    mostrarMensaje(`Empleado ID ${id} eliminado.`, 'exito');
+                    cargarEmpleados(); // Recargar lista
+                } else {
+                    mostrarMensaje(data.error || 'Error al eliminar empleado', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error al eliminar:', error);
+                mostrarMensaje('Error de conexión al eliminar empleado', 'error');
+            });
+        }
+
+        function editarEmpleado(id, empleadoActual) {
+            let nuevoSalario = prompt(`Editando a ${empleadoActual.nombre}.\nSalario actual: ${empleadoActual.salario}€\nIntroduce el nuevo salario:`, empleadoActual.salario);
+            
+            if (nuevoSalario === null || isNaN(parseFloat(nuevoSalario))) {
+                mostrarMensaje('Edición cancelada o salario inválido.', 'info');
+                return;
+            }
+
+            const datosActualizados = {
+                nombre: empleadoActual.nombre, 
+                puesto: empleadoActual.puesto, 
+                salario: parseFloat(nuevoSalario).toFixed(2)
+            };
+
+            fetch(`api.php?recurso=empleados&id=${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datosActualizados)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'ok') {
+                    mostrarMensaje(`Empleado ID ${id} actualizado.`, 'exito');
+                    cargarEmpleados(); // Recargar lista
+                } else {
+                    mostrarMensaje(data.error || 'Error al actualizar empleado', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error al actualizar:', error);
+                mostrarMensaje('Error de conexión al actualizar empleado', 'error');
+            });
+        }
+
+
+        function cargarEmpleados() {
+            loading.style.display = 'block';
+            listaEmpleados.innerHTML = '';
+
+            fetch('api.php?recurso=empleados')
+                .then(response => response.json())
+                .then(empleados => {
+                    loading.style.display = 'none';
+                    
+                    if (empleados.length === 0) {
+                        listaEmpleados.innerHTML = '<li>No hay empleados registrados</li>';
+                        return;
+                    }
+
+                    empleados.forEach(empleado => {
+                        const li = document.createElement('li');
+                        // Añadimos la clase para darle estilo
+                        li.className = 'empleado-item'; 
+                        li.innerHTML = `
+                            <div class="empleado-info">
+                                <strong>ID ${empleado.id}: ${empleado.nombre}</strong> <br>
+                                Puesto: ${empleado.puesto} <br>
+                                Salario: ${empleado.salario}€
+                            </div>
+                            <div class="empleado-acciones">
+                                <button onclick='editarEmpleado(${empleado.id}, ${JSON.stringify(empleado)})'>Editar</button>
+                                <button onclick="eliminarEmpleado(${empleado.id}, '${empleado.nombre}')">Eliminar</button>
+                            </div>
+                        `;
+                        listaEmpleados.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    loading.style.display = 'none';
+                    console.error('Error al cargar empleados:', error);
+                    listaEmpleados.innerHTML = '<li style="color: red;">Error al cargar empleados</li>';
+                });
+        }
+
+        btnRecargar.addEventListener('click', cargarEmpleados);
+
+        cargarEmpleados();
+    </script>
+</body>
+</html>
