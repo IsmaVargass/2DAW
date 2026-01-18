@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+// Ruta principal - Página de bienvenida estática
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -12,6 +13,11 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+});
+
+// Ruta de tareas - Página dinámica con lista de tareas
+Route::get('/tareas', function () {
+    return Inertia::render('WelcomeDinamico');
 });
 
 Route::get('/dashboard', function () {
