@@ -20,6 +20,10 @@ Route::get('/tareas', function () {
     return Inertia::render('WelcomeDinamico');
 });
 
+Route::get('/contador', function () {
+    return Inertia::render('WelcomeConContador');
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
