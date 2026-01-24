@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web</title> <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="menu">
+        <div class="link" onclick="location.href='#home'">Inicio</div>
+        <div class="link" onclick="location.href='#servicios'">Cosas que hacemos</div>
+        <div class="link" onclick="location.href='#contacto'">Contactar</div>
+    </div>
+
+    <div id="main-content">
+        <img src="https://via.placeholder.com/1200x400?text=BIENVENIDOS+A+FASTTECH" class="banner">
+
+        <div class="section-title">Nuestros Servicios</div>
+        
+        <div class="grid">
+            <div class="card">
+                <img src="https://via.placeholder.com/150"> <div class="text">Hacemos webs muy rápidas y modernas para todo el mundo.</div>
+                <div class="boton-falso" onclick="alert('Más info')">Clic aquí</div> </div>
+            
+            <div class="card">
+                <img src="https://via.placeholder.com/150">
+                <div class="text">Consultoría de transformación digital avanzada.</div>
+                <div class="boton-falso" onclick="alert('Más info')">Clic aquí</div>
+            </div>
+        </div>
+
+        <div id="contacto">
+            <div class="section-title">Contacto</div>
+            <div class="form-group">
+                <input type="text" placeholder="Pon tu nombre aquí"> <input type="text" placeholder="Email"> <textarea placeholder="Mensaje"></textarea>
+                <div class="submit-btn" onclick="validar()">ENVIAR</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

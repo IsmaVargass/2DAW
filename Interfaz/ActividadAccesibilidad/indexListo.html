@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FastTech - Empresa líder en desarrollo web moderno y consultoría de transformación digital. Creamos soluciones tecnológicas rápidas y eficientes para impulsar tu negocio.">
+    <meta name="keywords" content="desarrollo web, transformación digital, consultoría tecnológica, diseño web moderno">
+    <meta name="author" content="FastTech">
+    <title>FastTech - Desarrollo Web y Transformación Digital | Servicios Tecnológicos</title>
+    <link rel="stylesheet" href="styleListo.css">
+    <script defer src="scriptListo.js"></script>
+
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <nav role="navigation" aria-label="Navegación principal">
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Nuestros Servicios</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <header id="inicio">
+        <img src="../ActividadAccesibilidad/img/banner.png" 
+             alt="Banner de bienvenida FastTech - Soluciones tecnológicas innovadoras" 
+             class="banner">
+    </header>
+
+    <main id="main-content">
+        <section id="servicios" aria-labelledby="servicios-titulo">
+            <h1 id="servicios-titulo">Nuestros Servicios</h1>
+            
+            <div class="servicios-grid">
+                <article class="servicio-card">
+                    <img src="../ActividadAccesibilidad/img/IconoDeWeb.png" 
+                         alt="Icono de desarrollo web">
+                    <h3>Desarrollo Web Moderno</h3>
+                    <p>Creamos sitios web rápidos, responsivos y optimizados para todos los dispositivos. Tecnología de vanguardia para impulsar tu presencia digital.</p>
+                    <a href="#mas-info-web" class="btn" role="button">Más información</a>
+                </article>
+                
+                <article class="servicio-card">
+                    <img src="../ActividadAccesibilidad/img/gestion.png" 
+                         alt="Icono de consultoría digital">
+                    <h3>Consultoría de Transformación Digital</h3>
+                    <p>Asesoramiento estratégico personalizado para digitalizar tu negocio. Soluciones innovadoras adaptadas a tus necesidades específicas.</p>
+                    <a href="#mas-info-consultoria" class="btn" role="button">Más información</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="contacto" aria-labelledby="contacto-titulo">
+            <h2 id="contacto-titulo">Contacto</h2>
+            
+            <div class="form-container">
+                <form id="formulario-contacto" novalidate>
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo <span aria-label="obligatorio">*</span></label>
+                        <input type="text" 
+                               id="nombre" 
+                               name="nombre" 
+                               required 
+                               aria-required="true"
+                               aria-describedby="nombre-error">
+                        <span id="nombre-error" class="error" role="alert">Por favor, introduce tu nombre</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Correo electrónico <span aria-label="obligatorio">*</span></label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               required 
+                               aria-required="true"
+                               aria-describedby="email-error">
+                        <span id="email-error" class="error" role="alert">Por favor, introduce un email válido</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje <span aria-label="obligatorio">*</span></label>
+                        <textarea id="mensaje" 
+                                  name="mensaje" 
+                                  required 
+                                  aria-required="true"
+                                  aria-describedby="mensaje-error"></textarea>
+                        <span id="mensaje-error" class="error" role="alert">Por favor, escribe tu mensaje</span>
+                    </div>
+
+                    <button type="submit" class="submit-btn">ENVIAR</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <p>&copy; 2025 FastTech - Todos los derechos reservados | Servicios Tecnológicos de Excelencia</p>
+    </footer>
+
+</body>
+</html>
