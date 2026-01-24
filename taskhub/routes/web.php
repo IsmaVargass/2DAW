@@ -12,6 +12,7 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'mensaje' => '¡Ánimo, hoy es un gran día para programar!',
     ]);
 });
 
@@ -22,6 +23,10 @@ Route::get('/tareas', function () {
 
 Route::get('/contador', function () {
     return Inertia::render('WelcomeConContador');
+});
+
+Route::get('/test', function () {
+    return Inertia::render('Test');
 });
 
 Route::get('/dashboard', function () {
