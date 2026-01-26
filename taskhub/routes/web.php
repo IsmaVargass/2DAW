@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\Task;
 
 // Ruta principal - Página de bienvenida estática
 Route::get('/', function () {
@@ -24,6 +25,12 @@ Route::get('/contador', function () {
     return Inertia::render('WelcomeConContador');
 });
 
+Route::get('/persistencia', function () {
+    return Inertia::render('WelcomePersistencia', [
+        'tasks' => Task::all()
+    ]);
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -34,4 +41,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
