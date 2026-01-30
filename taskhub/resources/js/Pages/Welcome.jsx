@@ -17,7 +17,6 @@ export default function Welcome() {
                     Ver Listado
                 </Link>
 
-                {/* 👇 NUEVO BOTÓN para el contador */}
                 <Link
                     href="/contador"
                     className="bg-green-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition"
@@ -30,6 +29,14 @@ export default function Welcome() {
                     className="bg-purple-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-purple-600 transition"
                 >
                     Ver Persistencia
+                </Link>
+
+                {/* 👇 NUEVO BOTÓN para el CRUD de tareas */}
+                <Link
+                    href="/welcome-crud"
+                    className="bg-amber-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-amber-600 transition"
+                >
+                    CRUD Tareas
                 </Link>
             </div>
         </div>
