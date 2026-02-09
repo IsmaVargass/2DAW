@@ -25,6 +25,10 @@ Route::get('/contador', function () {
     return Inertia::render('WelcomeConContador');
 });
 
+Route::get('/welcome-crud', function () {
+    return Inertia::render('WelcomeCRUD');
+})->name('welcome.crud');
+
 Route::get('/persistencia', function () {
     return Inertia::render('WelcomePersistencia', [
         'tasks' => Task::all()
