@@ -9,31 +9,31 @@ export default function Welcome() {
             <p className="text-slate-500 mt-2 font-medium">
                 Aprendiendo Laravel + React para DAW
             </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-4">
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto w-full px-4">
                 <Link
                     href="/actividad"
-                    className="bg-rose-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-rose-700 transition font-bold scale-110"
+                    className="w-full bg-rose-600 text-white py-4 rounded-xl shadow-lg hover:bg-rose-700 transition font-bold uppercase tracking-wider text-center active:scale-95"
                 >
-                    🔥 WelcomeCRUD 🔥
+                    Acceder CRUD
                 </Link>
 
                 <Link
                     href="/tareas"
-                    className="bg-indigo-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-indigo-600 transition"
+                    className="w-full bg-indigo-600 text-white py-4 rounded-xl shadow-lg hover:bg-indigo-700 transition font-bold uppercase tracking-wider text-center active:scale-95"
                 >
                     Ver Listado
                 </Link>
 
                 <Link
                     href="/contador"
-                    className="bg-green-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition"
+                    className="w-full bg-emerald-600 text-white py-4 rounded-xl shadow-lg hover:bg-emerald-700 transition font-bold uppercase tracking-wider text-center active:scale-95"
                 >
                     Ver Contador
                 </Link>
 
                 <Link
                     href="/persistencia"
-                    className="bg-purple-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-purple-600 transition"
+                    className="w-full bg-violet-600 text-white py-4 rounded-xl shadow-lg hover:bg-violet-700 transition font-bold uppercase tracking-wider text-center active:scale-95"
                 >
                     Ver Persistencia
                 </Link>
