@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\TaskController;
 use App\Models\Task;
 
 // Ruta principal - Página de bienvenida estática
@@ -16,6 +17,12 @@ Route::get('/', function () {
     ]);
 });
 
+// Nueva ruta para la actividad de la fase 6
+Route::get('/actividad', [TaskController::class, 'index'])->name('welcome.crud');
+Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+Route::patch('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
+Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
+
 // Ruta de tareas - Página dinámica con lista de tareas
 Route::get('/tareas', function () {
     return Inertia::render('WelcomeDinamico');
@@ -25,9 +32,6 @@ Route::get('/contador', function () {
     return Inertia::render('WelcomeConContador');
 });
 
-Route::get('/welcome-crud', function () {
-    return Inertia::render('WelcomeCRUD');
-})->name('welcome.crud');
 
 Route::get('/persistencia', function () {
     return Inertia::render('WelcomePersistencia', [

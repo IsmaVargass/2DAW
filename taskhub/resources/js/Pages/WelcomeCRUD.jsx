@@ -1,143 +1,99 @@
-import React, { useState } from 'react';
-import { Head, Link } from '@inertiajs/react';
-import { ListTodo, Home } from 'lucide-react';
-import TaskItem from '../Components/TaskItem';
-import TaskStats from '../Components/TaskStats';
+import React from 'react';
+import { Head, Link, useForm } from '@inertiajs/react';
+import { LayoutList, Plus, Home, Inbox } from 'lucide-react';
+import TaskItem from '@/Components/TaskItem';
+import TaskStats from '@/Components/TaskStats';
 
-export default function WelcomeCRUD() {
-  const [tasks, setTasks] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+export default function WelcomeCRUD({ tasks }) {
+  const { data, setData, post, processing, reset, errors } = useForm({
+    title: '',
+    description: '',
+  });
 
-  const handleAddTask = () => {
-    if (inputValue.trim().length > 0) {
-      const newTask = {
-        id: Date.now(),
-        title: inputValue.trim(),
-        completed: false
-      };
-      setTasks([...tasks, newTask]);
-      setInputValue('');
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleAddTask();
-    }
-  };
-
-  const handleToggleTask = (id) => {
-    setTasks(tasks.map(task =>
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ));
-  };
-
-  const handleUpdateTask = (id, newTitle) => {
-    if (newTitle.trim().length > 0) {
-      setTasks(tasks.map(task =>
-        task.id === id ? { ...task, title: newTitle.trim() } : task
-      ));
-    }
-  };
-
-  const handleClearCompleted = () => {
-    setTasks(tasks.filter(task => !task.completed));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    post(route('tasks.store'), {
+      onSuccess: () => reset('title', 'description'),
+      preserveScroll: true,
+    });
   };
 
   const totalTasks = tasks.length;
-  const completedTasks = tasks.filter(task => task.completed).length;
-  const progressPercentage = totalTasks > 0
-    ? Math.round((completedTasks / totalTasks) * 100)
-    : 0;
+  const completedTasks = tasks.filter(t => t.is_completed).length;
 
   return (
-    <>
-      <Head title="Lista de Tareas" />
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+      <Head title="TaskHub - CRUD Tareas" />
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4">
-        <div className="max-w-3xl mx-auto">
-          {/* Botón volver al inicio */}
-          <div className="mb-6">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 transition-colors shadow-sm hover:shadow-md"
-            >
-              <Home className="w-4 h-4" />
-              Volver al inicio
-            </Link>
-          </div>
-
-          {/* Título principal */}
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-6">
-              <ListTodo className="w-8 h-8 text-indigo-600" />
-              <h1 className="text-3xl font-bold text-slate-800">
-                Lista de tareas pendientes
-              </h1>
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-indigo-600 rounded-2xl text-white shadow-lg shadow-indigo-200">
+              <LayoutList className="w-8 h-8" />
             </div>
-
-            {/* Estadísticas */}
-            <TaskStats
-              total={totalTasks}
-              completed={completedTasks}
-              progress={progressPercentage}
-            />
+            <div>
+              <h1 className="text-3xl font-black text-slate-800 tracking-tight">TaskHub CRUD</h1>
+              <p className="text-slate-500 font-medium">Gestión de tareas persistente con Laravel</p>
+            </div>
           </div>
 
-          {/* Input y botón de añadir */}
-          <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-            <div className="flex gap-3">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 text-slate-600 font-semibold rounded-xl hover:bg-slate-50 transition-all shadow-sm"
+          >
+            <Home className="w-4 h-4" />
+            Volver al inicio
+          </Link>
+        </div>
+
+        {/* Stats Section */}
+        <TaskStats total={totalTasks} completed={completedTasks} />
+
+        {/* Create Task Form */}
+        <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 mb-8">
+          <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1 relative">
               <input
                 type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Añadir nueva tarea"
-                className="flex-1 px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                placeholder="¿Qué hay que hacer hoy?"
+                value={data.title}
+                onChange={e => setData('title', e.target.value)}
+                className={`w-full pl-12 pr-4 py-4 bg-slate-50 border ${errors.title ? 'border-red-300 focus:ring-red-500' : 'border-slate-100 focus:ring-indigo-500'} rounded-2xl text-slate-800 focus:bg-white focus:outline-none focus:ring-2 transition-all`}
               />
-              <button
-                onClick={handleAddTask}
-                className="px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 active:bg-indigo-800 transition-colors shadow-sm hover:shadow-md"
-              >
-                Añadir
-              </button>
+              <Plus className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
             </div>
-          </div>
+            <button
+              type="submit"
+              disabled={processing || !data.title.trim()}
+              className="bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 active:scale-95 disabled:opacity-50 disabled:grayscale transition-all flex items-center justify-center gap-2"
+            >
+              <Plus className="w-5 h-5" />
+              Añadir Tarea
+            </button>
+          </form>
+          {errors.title && <p className="mt-2 text-sm text-red-500 font-medium ml-12">{errors.title}</p>}
+        </div>
 
-          {/* Lista de tareas */}
-          <div className="bg-white rounded-lg shadow-md overflow-hidden mb-6">
-            {tasks.length === 0 ? (
-              <div className="p-12 text-center text-slate-400">
-                <ListTodo className="w-16 h-16 mx-auto mb-4 opacity-30" />
-                <p className="text-lg">No hay tareas aún. ¡Añade tu primera tarea!</p>
+        {/* Task List */}
+        <div className="space-y-4">
+          {tasks.length > 0 ? (
+            <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden divide-y divide-slate-50">
+              {tasks.map(task => (
+                <TaskItem key={task.id} task={task} />
+              ))}
+            </div>
+          ) : (
+            <div className="bg-white py-16 px-8 rounded-3xl shadow-sm border border-slate-100 text-center">
+              <div className="inline-flex p-4 bg-slate-50 rounded-2xl text-slate-300 mb-4">
+                <Inbox className="w-12 h-12" />
               </div>
-            ) : (
-              <div className="divide-y divide-slate-200">
-                {tasks.map(task => (
-                  <TaskItem
-                    key={task.id}
-                    task={task}
-                    onToggle={handleToggleTask}
-                    onUpdate={handleUpdateTask}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Botón limpiar completadas */}
-          {completedTasks > 0 && (
-            <div className="flex justify-center">
-              <button
-                onClick={handleClearCompleted}
-                className="px-6 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 active:bg-red-800 transition-colors shadow-sm hover:shadow-md"
-              >
-                Limpiar lista ({completedTasks} completada{completedTasks !== 1 ? 's' : ''})
-              </button>
+              <h3 className="text-xl font-bold text-slate-700 mb-1">Sin tareas pendientes</h3>
+              <p className="text-slate-400">Todo está al día. ¡Buen trabajo!</p>
             </div>
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
